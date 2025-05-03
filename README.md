@@ -31,84 +31,65 @@ The Histogram of gray scale image and color image is shown.
 
 import cv2
 import numpy as np
-from matplotlib import pyplot as plt
-
-gray_image = cv2.imread('car.jpg', cv2.IMREAD_GRAYSCALE)
-
-plt.title("Grayscale Image")
-plt.imshow(gray_image, cmap='gray')
-plt.axis('off')
-
-print("Name : Rakshitha J \n Register Number : 212223240135")
-
-plt.title("Histogram of Grayscale Image")
-plt.hist(gray_image.ravel(), bins=256, color='black', alpha=0.6)
-plt.xlim(0, 255)
-plt.tight_layout()
-plt.show()
-
-equalized_gray_image = cv2.equalizeHist(gray_image)
-
-plt.title("Histogram of Equalized Grayscale Image")
-plt.hist(equalized_gray_image.ravel(), bins=256, color='black', alpha=0.6)
-plt.xlim(0, 255)
-
-plt.title("Enhanced Grayscale Image")
-plt.imshow(equalized_gray_image, cmap='gray')
-plt.axis('off')
-
-import cv2
-import numpy as np
 import matplotlib.pyplot as plt
 
-color_image = cv2.imread('cat.jpg')
+img = cv2.imread('parrot.jpg',cv2.IMREAD_GRAYSCALE)
 
-plt.title("Input Color Image")
-plt.imshow(cv2.cvtColor(color_image, cv2.COLOR_BGR2RGB))
-plt.axis('off')
-
-hist_b = cv2.calcHist([color_image], [0], None, [256], [0, 256])
-hist_g = cv2.calcHist([color_image], [1], None, [256], [0, 256])
-hist_r = cv2.calcHist([color_image], [2], None, [256], [0, 256])
-
-print("Name : Rakshitha J \n Register Number : 212223240135")
-
-
-plt.title("Histogram of Input Color Image")
-plt.plot(hist_b, color='blue', label='Blue channel')
-plt.plot(hist_g, color='green', label='Green channel')
-plt.plot(hist_r, color='red', label='Red channel')
+plt.imshow(img, cmap='gray')
+plt.title("Original Image")
 plt.show()
 
-blue_channel_eq = cv2.equalizeHist(color_image[:, :, 0])
-green_channel_eq = cv2.equalizeHist(color_image[:, :, 1])
-red_channel_eq = cv2.equalizeHist(color_image[:, :, 2])
+plt.hist(img.ravel(),256,range=[0,256])
+plt.title("Original Image")
+plt.show()
 
-equalized_color_image = cv2.merge([blue_channel_eq, green_channel_eq, red_channel_eq])
+# Name : Rakshitha J
+# Reg no : 212223240135
 
-plt.title("Equalized Image")
-plt.imshow(equalized_color_image[:,:,::-1])
-plt.axis('off')
+img_eq=cv2.equalizeHist(img)
 
+plt.hist(img_eq.ravel(),256,range=[0,256]);
+plt.title('Equalized Histogram')
+
+plt.imshow(img_eq, cmap='gray')
+plt.title("Original Image")
+plt.show()
+
+# Name : Rakshitha J
+# Reg no : 212223240135
+
+img = cv2.imread('parrot.jpg',cv2.IMREAD_COLOR)
+img_hsv = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
+img_hsv[:,:,2] = cv2.equalizeHist(img_hsv[:,:,2])
+img_eq = cv2.cvtColor(img_hsv, cv2.COLOR_HSV2BGR)
+
+plt.figure(figsize=(10,12))
+plt.subplot(121) ; plt.imshow(img[: , : ,::-1]); plt.title('Original Color Image')
+plt.subplot(122) ; plt.imshow(img_eq[: , : ,::-1]); plt.title('Equalized Image')
+plt.subplot(321) ; plt.hist(img.ravel(),256,range =[0,256]);plt.title('Original Image')
+plt.subplot(322) ; plt.hist(img_eq.ravel(),256,range =[0,256]);plt.title('Histogram Equalized Image')
 ```
 ## Output:
-### Input Grayscale Image and Color Image
 
-![Screenshot 2025-03-22 184435](https://github.com/user-attachments/assets/b69ed252-f9ec-467c-bc34-cc77c82a8b7d)
+### Original Image:
 
-![Screenshot 2025-03-22 184455](https://github.com/user-attachments/assets/b2712f18-f2ef-4426-ae50-22f454a22cee)
+![download](https://github.com/user-attachments/assets/e81836f2-2211-4c24-8dfc-356aed85df26)
 
+### Histogram of Original Image:
 
-### Histogram of Grayscale Image and any channel of Color Image
+![download](https://github.com/user-attachments/assets/f44d4151-7b91-47cc-abaf-12774e55ad25)
 
-![Screenshot 2025-03-22 184514](https://github.com/user-attachments/assets/3180fada-7204-44c7-84fe-58747acffe55)
+### Histogram Equalization of Original Image:
 
-![Screenshot 2025-03-22 184529](https://github.com/user-attachments/assets/5f85dbba-f474-4456-91af-4f3b0df56804)
+![download](https://github.com/user-attachments/assets/cb6c85ae-6e7e-4e82-8d1a-b08bf03d33c6)
 
+## Original Gray Image :
 
-### Histogram Equalization of Grayscale Image.
+![download](https://github.com/user-attachments/assets/06032e40-0384-4830-9f3f-78a2cdd97357)
 
-![Screenshot 2025-03-22 184601](https://github.com/user-attachments/assets/82ad60df-c792-4b86-ba20-8a6f9c2e46c1)
+## Histogram Equalized Image :
+
+![download](https://github.com/user-attachments/assets/bc1e9dc1-299d-495a-a401-7fa8360d70ac)
 
 ## Result: 
 Thus the histogram for finding the frequency of pixels in an image with pixel values ranging from 0 to 255 is obtained. Also,histogram equalization is done for the gray scale image using OpenCV.
